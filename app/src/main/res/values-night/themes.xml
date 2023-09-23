@@ -1,0 +1,11 @@
+<resources >
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SimplePasswordManager" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+    <style name="tint" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:textColor">@color/grey_100</item>
+        <item name="android:tint">@color/grey_100</item>
+    </style>
+</resources>

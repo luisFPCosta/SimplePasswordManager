@@ -1,0 +1,46 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SimplePasswordManager" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
+
+    </style>
+
+    <style name="Theme.SimplePasswordManager" parent="Base.Theme.SimplePasswordManager" />
+
+    <style name="checkbox" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:checked">true</item>
+        <item name="android:layout_marginStart">-5dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+
+    </style>
+
+    <style name="edittext" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="textview" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">3dp</item>
+    </style>
+
+    <style name="button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="tint" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:textColor">@color/colorOnPrimaryContainer</item>
+        <item name="android:tint">@color/colorOnPrimaryContainer</item>
+    </style>
+
+</resources>

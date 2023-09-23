@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple Password Manager</string>
+    <string name="name">Nome</string>
+    <string name="location_site">Localização (Site…)</string>
+    <string name="password_size">Tamanho da senha</string>
+    <string name="allow_alphabetical">Incluir Letras</string>
+    <string name="allow_numerics">Incluir Números</string>
+    <string name="allow_symbols">Incluir Símbolos</string>
+    <string name="your_password">Sua Senha</string>
+    <string name="account_name">Nome dessa conta</string>
+    <string name="chars_in_password">0</string>
+    <string name="save_password">Salvar Senha</string>
+    <string name="copy_password">Copiar Senha</string>
+    <string name="generate_password">Gerar Senha</string>
+    <string name="password_copied">Senha copiada</string>
+    <string name="local">Local</string>
+    <string name="delete">Deletar essa senha?</string>
+    <string name="are_you_sure_you_want_to_remove_the_password">Tem certeza que quer remover a senha</string>
+    <string name="this_operation_cannot_be_undone">Essa operação não pode ser desfeita!</string>
+    <string name="password">Senha</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="added">adicionada</string>
+    <string name="successfully">sucesso</string>
+    <string name="updated">atualizada</string>
+    <string name="invalid_name">Nome inválido. Insira um nome válido.</string>
+    <string name="copied">Senha copiada.</string>
+    <string name="unexpected_error">um erro inesperado ocorreu!</string>
+    <string name="enter_your_password">Digite sua senha para entrar no aplicativo.</string>
+    <string name="create_password">Crie uma senha para entrar no aplicativo.</string>
+    <string name="create_password_button">Criar senha e entrar</string>
+    <string name="login">Login</string>
+    <string name="incorrect_password">Senha incorreta. Insira a senha corretamente.</string>
+    <string name="blank_password">A senha não pode ficar em branco.</string>
+    <string name="new_password">Nova Senha</string>
+    <string name="select_boxes">Selecione uma ou mais caixas acima.</string>
+    <string name="biometric_authentication">Autenticação Biométrica</string>
+    <string name="tap_the_sensor">Toque no sensor biométrico para entrar no aplicativo.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="password_too_short">Senha muito curta. A senha deve ter pelo menos quatro caracteres.</string>
+</resources>
