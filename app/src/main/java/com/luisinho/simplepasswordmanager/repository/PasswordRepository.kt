@@ -2,6 +2,11 @@ package com.luisinho.simplepasswordmanager.repository
 
 import android.content.Context
 import com.luisinho.simplepasswordmanager.model.PasswordModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class PasswordRepository(context: Context, masterKey:ByteArray) {
     private val passwordDataBase = PasswordDataBase.getDataBase(context, masterKey).passwordDAO()

@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.luisinho.simplepasswordmanager.model.PasswordModel
+import kotlinx.coroutines.CoroutineScope
 import net.sqlcipher.database.SupportFactory
 
 
