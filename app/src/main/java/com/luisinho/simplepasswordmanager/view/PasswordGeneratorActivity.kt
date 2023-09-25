@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityPasswordGeneratorBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
+import com.luisinho.simplepasswordmanager.service.PasswordGeneratorService
 import com.luisinho.simplepasswordmanager.viewmodel.PasswordViewModel
 
 
@@ -58,14 +59,14 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
         when (view.id) {
             R.id.button_generate_password -> {
                 //generate string of characters for password
-                val chars = viewModel.makeCharsList(
+                val chars = PasswordGeneratorService().makeCharsList(
                     binding.checkboxAllowAlphabetical.isChecked,
                     binding.checkboxAllowNumeric.isChecked,
                     binding.checkboxAllowSymbol.isChecked
                 )
                 if (chars != "") {
                     //generate password
-                    password = viewModel.generatePassword(chars, charsInPassword)/*assigns the password to an edittext to be edited or copied according to
+                    password = PasswordGeneratorService().generatePassword(chars, charsInPassword)/*assigns the password to an edittext to be edited or copied according to
                 the user's wishes*/
                     binding.editGeneratedPassword.setText(password)
                 }else{

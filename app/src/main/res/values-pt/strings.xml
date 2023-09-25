@@ -12,6 +12,7 @@
     <string name="account_name">Nome dessa conta</string>
     <string name="chars_in_password">0</string>
     <string name="save_password">Salvar Senha</string>
+    <string name="unknown_location">Local não informado</string>
     <string name="copy_password">Copiar Senha</string>
     <string name="generate_password">Gerar Senha</string>
     <string name="password_copied">Senha copiada</string>
@@ -29,7 +30,9 @@
     <string name="copied">Senha copiada.</string>
     <string name="unexpected_error">um erro inesperado ocorreu!</string>
     <string name="enter_your_password">Digite sua senha para entrar no aplicativo.</string>
-    <string name="create_password">Crie uma senha para entrar no aplicativo.</string>
+    <string name="create_password">Crie uma senha para entrar no aplicativo. Você pode alterar a
+        senha posteriormente desde que não a esqueça. Caso esqueça terá que deletar todos os
+        dados, perdendo assim todas as senhas salvas!</string>
     <string name="create_password_button">Criar senha e entrar</string>
     <string name="login">Login</string>
     <string name="incorrect_password">Senha incorreta. Insira a senha corretamente.</string>

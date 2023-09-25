@@ -1,16 +1,17 @@
 package com.luisinho.simplepasswordmanager.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.luisinho.simplepasswordmanager.databinding.RowPasswordBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
 import com.luisinho.simplepasswordmanager.service.PasswordListener
+import com.luisinho.simplepasswordmanager.view.MainActivity
 import com.luisinho.simplepasswordmanager.view.viewHolder.PasswordViewHolder
 
-class  PasswordAdapter: RecyclerView.Adapter<PasswordViewHolder>() {
-
+class  PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewHolder>() {
     private var passwordList: List<PasswordModel> = arrayListOf()
     private lateinit var passwordListener: PasswordListener
     private lateinit var listPassword: RowPasswordBinding
@@ -24,7 +25,7 @@ class  PasswordAdapter: RecyclerView.Adapter<PasswordViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: PasswordViewHolder, position: Int) {
-        holder.bind(passwordList[position])
+        holder.bind(passwordList[position], context)
     }
 
 

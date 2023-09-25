@@ -14,6 +14,7 @@
     <string name="generate_password">Generate Password</string>
     <string name="password_copied">Password Copied</string>
     <string name="local">Local</string>
+    <string name="unknown_location">Location not specified</string>
     <string name="delete">Delete this password?</string>
     <string name="are_you_sure_you_want_to_remove_the_password">Are you sure you want to remove the password</string>
     <string name="this_operation_cannot_be_undone">This operation cannot be undone!</string>
@@ -27,7 +28,9 @@
     <string name="copied">Copied password.</string>
     <string name="unexpected_error">An unexpected error has occurred!</string>
     <string name="enter_your_password">Enter your password to enter the application.</string>
-    <string name="create_password">Create a password to enter the application.</string>
+    <string name="create_password">Create a password to enter the application. You can change the
+        password later, as long as you don\'t forget it. If you forget it, you will have to delete
+        all data, losing all saved passwords!</string>
     <string name="create_password_button">Create password and log in</string>
     <string name="login">Login</string>
     <string name="incorrect_password">Incorrect password. Enter the password correctly.</string>

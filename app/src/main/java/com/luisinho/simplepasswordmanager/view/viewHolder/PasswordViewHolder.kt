@@ -1,6 +1,10 @@
 package com.luisinho.simplepasswordmanager.view.viewHolder
 
 import android.app.AlertDialog
+import android.app.Application
+import android.content.Context
+import android.content.res.Resources
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.RowPasswordBinding
@@ -11,11 +15,15 @@ class PasswordViewHolder(
     private val item: RowPasswordBinding,
     private val listener: PasswordListener,
 
-    ) : RecyclerView.ViewHolder(item.root) {
+    ) : RecyclerView.ViewHolder(item.root){
 
-    fun bind(password: PasswordModel) {
+    fun bind(password: PasswordModel, context: Context) {
         item.textName.text = password.name
-        item.textLocal.text = password.local
+        if (password.local.isNullOrEmpty()){
+            item.textLocal.text = context.getString(R.string.unknown_location)
+        }else{
+            item.textLocal.text = password.local
+        }
         itemView.setOnClickListener {
             listener.onClick(password)
         }

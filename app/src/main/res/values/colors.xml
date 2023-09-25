@@ -5,7 +5,9 @@
     <color name="colorPrimary">#841EE8</color>
     <color name="colorPrimaryContainer">#841EE8</color>
     <color name="colorOnPrimaryContainer">#FFFFFF</color>
-    <color name="grey_100">#E6000000</color>
+    <color name="grey_500">#E2000000</color>
+    <color name="grey_200">#C1000000</color>
     <color name="red_warning">#FB5F5F</color>
+    <color name="grey_50">#83909090</color>
 
 </resources>

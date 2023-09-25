@@ -6,6 +6,7 @@
     android:padding="20dp">
 
     <TextView
+        android:layout_marginTop="50dp"
         android:id="@+id/text_login_message"
         style="@style/textview"
         android:layout_width="0dp"
@@ -29,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".15" />
+        app:layout_constraintVertical_bias=".2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login"

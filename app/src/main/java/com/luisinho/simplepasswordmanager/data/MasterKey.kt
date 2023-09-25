@@ -2,12 +2,12 @@ package com.luisinho.simplepasswordmanager.data
 
 class MasterKey {
     companion object{
-        private lateinit var appKey:ByteArray
+        private lateinit var cryptoKey:ByteArray
         fun getKey(): ByteArray{
-            return appKey
+            return cryptoKey
         }
         fun setKey(key:String){
-            appKey = key.toByteArray()
+            cryptoKey = key.toByteArray()
         }
     }
 

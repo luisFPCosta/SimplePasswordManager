@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,13 +28,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val toolbar = binding.toolbar
-        toolbar.setTitleTextColor(Color.WHITE)
         setSupportActionBar(toolbar)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        binding.imageSettings.setOnClickListener(this)
         binding.buttonNewPassword.setOnClickListener(this)
         binding.recyclerPasswords.layoutManager = LinearLayoutManager(this)
         binding.recyclerPasswords.setHasFixedSize(true)
-        adapter = PasswordAdapter()
+        adapter = PasswordAdapter(this)
         binding.recyclerPasswords.adapter = adapter
         val listener = object : PasswordListener {
             override fun onClick(password: PasswordModel) {
@@ -74,6 +75,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (view.id) {
             R.id.button_new_password -> {
                 startActivity(Intent(applicationContext, PasswordGeneratorActivity::class.java))
+            }
+            R.id.image_settings->{
+                Toast.makeText(this, "img",Toast.LENGTH_SHORT).show()
             }
         }
     }

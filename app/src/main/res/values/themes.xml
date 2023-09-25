@@ -41,6 +41,10 @@
     <style name="tint" parent="Base.Theme.SimplePasswordManager">
         <item name="android:textColor">@color/colorOnPrimaryContainer</item>
         <item name="android:tint">@color/colorOnPrimaryContainer</item>
+        <item name="titleTextColor">@color/colorOnPrimaryContainer</item>
+    </style>
+    <style name="view" parent="Base.Theme.SimplePasswordManager">
+        <item name="android:background">@color/grey_200</item>
     </style>
 
 </resources>
