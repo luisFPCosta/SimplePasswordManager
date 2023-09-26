@@ -1,10 +1,8 @@
 package com.luisinho.simplepasswordmanager.view
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,10 +24,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         binding.imageSettings.setOnClickListener(this)
         binding.buttonNewPassword.setOnClickListener(this)
         binding.recyclerPasswords.layoutManager = LinearLayoutManager(this)
@@ -44,6 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+
             override fun onLongClick(password: PasswordModel) {
                 //delete password with one long click
                 viewModel.delete(password)
@@ -56,6 +54,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         viewModel.getAll()
+        if (adapter.itemCount == 0) {
+            binding.textNoPasswordSaved.visibility = View.VISIBLE
+
+        } else {
+            binding.textNoPasswordSaved.visibility = View.GONE
+        }
         if (itemCount < adapter.itemCount && itemCount != 0) {
             //scrolls the screen to the end when entering a new password. New passwords appear at the bottom of the screen
             binding.recyclerPasswords.scrollToPosition(adapter.itemCount - 1)
@@ -76,8 +80,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button_new_password -> {
                 startActivity(Intent(applicationContext, PasswordGeneratorActivity::class.java))
             }
-            R.id.image_settings->{
-                Toast.makeText(this, "img",Toast.LENGTH_SHORT).show()
+
+            R.id.image_settings -> {
+                startActivity(Intent(applicationContext, ConfigsActivity::class.java))
             }
         }
     }

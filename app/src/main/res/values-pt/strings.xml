@@ -42,5 +42,17 @@
     <string name="biometric_authentication">Autenticação Biométrica</string>
     <string name="tap_the_sensor">Toque no sensor biométrico para entrar no aplicativo.</string>
     <string name="cancel">Cancelar</string>
-    <string name="password_too_short">Senha muito curta. A senha deve ter pelo menos quatro caracteres.</string>
+    <string name="password_too_short">Senha muito curta. Deve ter pelo menos quatro caracteres.</string>
+    <string name="change_password">Alterar a senha</string>
+    <string name="settings">Configurações</string>
+    <string name="be_careful_if_you_forget_your_password_you_will_not_be_able_to_access_the_data_saved_in_the_application">Cuidado, caso você esqueça sua senha não conseguirá acessar os dados salvos no aplicativo!</string>
+    <string name="enter_your_old_password">Insira sua senha antiga</string>
+    <string name="enter_your_new_password">Insira sua nova senha</string>
+    <string name="repeat_your_new_password">Repita sua nova senha</string>
+    <string name="confirm">Confirmar</string>
+    <string name="incorrect_old_password">Senha antiga incorreta</string>
+    <string name="password_updated_successfully">Senha atualizada com sucesso</string>
+    <string name="dialog_password_too_short">Muito curta. Mínimo 4 caracteres</string>
+    <string name="save_an_empty_password">Não é possível salvar uma senha vazia</string>
+    <string name="no_password_saved">Nenhuma senha salva, clique no botão abaixo para criar uma.</string>
 </resources>

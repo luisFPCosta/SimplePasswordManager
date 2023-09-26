@@ -12,4 +12,9 @@ class Constants  {
         const val LOCAL = "local"
 
     }
+    object PasswordChangerConstants{
+        const val INCORRECT_OLD_PASSWORD = "incorrect_old_password"
+        const val BLANK_FIELDS = "blank_fields"
+        const val PASSWORDS_DO_NOT_MATCH = "passwords_do_not_match"
+    }
 }

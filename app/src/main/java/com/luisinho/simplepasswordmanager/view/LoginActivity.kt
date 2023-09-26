@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                     } else {
-                        invalidPassword(R.string.password_too_short)
+                        invalidPassword(R.string.dialog_password_too_short)
                     }
                 }
             }

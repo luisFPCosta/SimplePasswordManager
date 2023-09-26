@@ -6,28 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/tint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/tint"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="4dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_settings"
+        style="@style/tint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_settings_24"
-        style="@style/tint"
+        android:layout_marginEnd="25dp"
         android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="@id/toolbar"
+        android:src="@drawable/baseline_settings_24"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="@id/toolbar"
-        android:layout_marginEnd="25dp"
-        />
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+
+    <TextView
+        android:id="@+id/text_no_password_saved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="60dp"
+        android:text="@string/no_password_saved"
+        android:textSize="34sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,9 +75,9 @@
 
     <TextView
         android:id="@+id/text_button_new_password"
+        style="@style/tint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/tint"
         android:text="@string/new_password"
         app:layout_constraintBottom_toBottomOf="@id/button_new_password"
         app:layout_constraintEnd_toEndOf="@id/button_new_password"
@@ -70,10 +85,10 @@
         app:layout_constraintTop_toTopOf="@id/button_new_password" />
 
     <com.google.android.material.imageview.ShapeableImageView
+        style="@style/tint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_add_24"
-        style="@style/tint"
         app:layout_constraintBottom_toBottomOf="@id/text_button_new_password"
         app:layout_constraintStart_toEndOf="@id/text_button_new_password"
         app:layout_constraintTop_toTopOf="@id/text_button_new_password" />

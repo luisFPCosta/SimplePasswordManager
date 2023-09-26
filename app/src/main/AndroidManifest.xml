@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".service.ColorService"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.SimplePasswordManager"
-        tools:targetApi="31"
-        android:name=".service.ColorService">
+        tools:targetApi="31">
+        <activity
+            android:name=".view.ConfigsActivity"
+            android:exported="false" />
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">
@@ -22,8 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.PasswordGeneratorActivity"/>
-        <activity android:name=".view.MainActivity"/>
+        <activity android:name=".view.PasswordGeneratorActivity" />
+        <activity android:name=".view.MainActivity" />
     </application>
 
 </manifest>

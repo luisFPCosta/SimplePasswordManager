@@ -69,7 +69,7 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                     password = PasswordGeneratorService().generatePassword(chars, charsInPassword)/*assigns the password to an edittext to be edited or copied according to
                 the user's wishes*/
                     binding.editGeneratedPassword.setText(password)
-                }else{
+                } else {
                     binding.editGeneratedPassword.setText("")
                     binding.editGeneratedPassword.hint = getString(R.string.select_boxes)
                     binding.editGeneratedPassword.setHintTextColor(Color.RED)
@@ -89,10 +89,16 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                     val password =
                         binding.editGeneratedPassword.text.toString().replace("\\s".toRegex(), "")
                     val model = PasswordModel(id, name, local, password)
-                    if (id == 0) {//if the id is equal to zero then it is a new password, calling the insert method
-                        viewModel.insert(model)
-                    } else {//if the id is different from zero then it is an update to the already saved password, calling the update method
-                        viewModel.update(model)
+                    if (password.isEmpty()) {
+                        binding.editGeneratedPassword.setText("")
+                        binding.editGeneratedPassword.setHint(R.string.save_an_empty_password)
+                        binding.editGeneratedPassword.setHintTextColor(Color.RED)
+                    } else {
+                        if (id == 0) {//if the id is equal to zero then it is a new password, calling the insert method
+                            viewModel.insert(model)
+                        } else {//if the id is different from zero then it is an update to the already saved password, calling the update method
+                            viewModel.update(model)
+                        }
                     }
                 } else {//name is invalid
                     val message: String = getString(R.string.invalid_name)

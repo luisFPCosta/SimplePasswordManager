@@ -41,4 +41,16 @@
     <string name="tap_the_sensor">Tap the biometric sensor to enter the app.</string>
     <string name="cancel">Cancel</string>
     <string name="password_too_short">Password too short. The password must have at least four characters.</string>
+    <string name="change_password">Change Password</string>
+    <string name="settings">Settings</string>
+    <string name="be_careful_if_you_forget_your_password_you_will_not_be_able_to_access_the_data_saved_in_the_application">Be careful, if you forget your password you will not be able to access the data saved in the application!</string>
+    <string name="enter_your_old_password">Enter your old password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="repeat_your_new_password">Repeat your new password</string>
+    <string name="confirm">Confirm</string>
+    <string name="incorrect_old_password">Incorrect old password</string>
+    <string name="password_updated_successfully">password updated successfully</string>
+    <string name="dialog_password_too_short">Too short. Minimum 4 characters</string>
+    <string name="save_an_empty_password">It is not possible to save an empty password</string>
+    <string name="no_password_saved">No password saved, click the button below to create one.</string>
 </resources>
