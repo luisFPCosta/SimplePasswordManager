@@ -55,49 +55,42 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
             /*control variable used to know if any field is blank. It will only be false if
             all fields are filled in*/
             blankPasswords = false
-            if (passwordIsBlank(editOldPassword.text.toString().trim())) {
-                /*If the field is blank, displays a red warning to the user and assigns the value
+            val oldPasswordValue = editOldPassword.text.replace("\\s".toRegex(), "")
+            val newPasswordValue = editNewPassword.text.replace("\\s".toRegex(), "")
+            val repeatNewPasswordValue = repeatNewPassword.text.replace("\\s".toRegex(), "")
+            if (passwordIsBlank(oldPasswordValue)) {/*If the field is blank, displays a red warning to the user and assigns the value
                  “false” to the control variable*/
                 editOldPassword.setHintTextColor(getColor(R.color.red_warning))
                 editOldPassword.hint = getString(R.string.enter_your_old_password)
                 blankPasswords = true
-            }
-            if (passwordIsBlank(editNewPassword.text.toString().trim())) {
+            } else if (passwordIsBlank(newPasswordValue)) {
                 editNewPassword.setText("")
                 editNewPassword.setHintTextColor(getColor(R.color.red_warning))
                 editNewPassword.hint = getString(R.string.enter_your_new_password)
                 blankPasswords = true
-            }
-            if (passwordIsBlank(repeatNewPassword.text.toString().trim())) {
+            } else if (passwordIsBlank(repeatNewPasswordValue)) {
                 repeatNewPassword.setText("")
                 repeatNewPassword.setHintTextColor(getColor(R.color.red_warning))
                 repeatNewPassword.hint = getString(R.string.repeat_your_new_password)
                 blankPasswords = true
             } else {
                 //no fields are blank
-                if (!viewModel.checkOldPassword(editOldPassword.text.toString().trim())) {
-                    /*checks whether the old password entered matches the saved password, If it
+                if (!viewModel.checkOldPassword(oldPasswordValue)) {/*checks whether the old password entered matches the saved password, If it
                     does not match, the user is informed*/
                     editOldPassword.setText("")
                     editOldPassword.setHintTextColor(getColor(R.color.red_warning))
                     editOldPassword.hint = getString(R.string.incorrect_old_password)
                 } else {
-                    if (!blankPasswords) {
-                        /*if it coincides and the control variable has the value
-                        "false" (no blank field)*/
-                        if (viewModel.checkNewPassword(
-                                editNewPassword.text.toString(), repeatNewPassword.text.toString()
-                            )
-                        ) {
+                    if (!blankPasswords) {/*if the old password matches the saved one and there are no blank fields*/
+                        if (viewModel.checkNewPassword(newPasswordValue)) {
                             //checks if the password has at least four characters
-                            if (editNewPassword.text.toString() == repeatNewPassword.text.toString()) {
-                                /*Checks whether the new password was entered correctly twice. If
+                            if (viewModel.passwordsAreTheSame(
+                                    newPasswordValue, repeatNewPasswordValue
+                                )
+                            ) {/*Checks whether the new password was entered correctly twice. If
                                 everything is ok so far it will be
                                 saved by overwriting the old password*/
-                                if (viewModel.updatePassword(
-                                        editNewPassword.text.toString().trim()
-                                    )
-                                ) {
+                                if (viewModel.updatePassword(newPasswordValue)) {
                                     Toast.makeText(
                                         this,
                                         getString(R.string.password_updated_successfully),
@@ -109,7 +102,8 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
                                 //passwords don't match
                                 repeatNewPassword.setText("")
                                 repeatNewPassword.setHintTextColor(getColor(R.color.red_warning))
-                                repeatNewPassword.hint = getString(R.string.repeat_your_new_password)
+                                repeatNewPassword.hint =
+                                    getString(R.string.repeat_your_new_password)
                             }
                         } else {
                             //new password is too short

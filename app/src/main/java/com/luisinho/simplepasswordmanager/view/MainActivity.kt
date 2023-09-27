@@ -55,6 +55,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onResume()
         viewModel.getAll()
         if (adapter.itemCount == 0) {
+            /*If the adapter returns that there is no item being displayed, it is because there is
+            nothing saved in the database, in this case a TextView is displayed informing the user
+            of this*/
             binding.textNoPasswordSaved.visibility = View.VISIBLE
 
         } else {
@@ -68,10 +71,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStop() {
         super.onStop()
-        itemCount = adapter.itemCount/*updates the variable to get the number of saved passwords when the
-             user enters the password creation/editing activity. If he saves a new password when
-             he returns there will be a check in "OnResume", if a new password was added the
-             screen will scroll to the end*/
+        /*updates the variable to get the number of saved passwords when the
+         user enters the password creation/editing activity. If he saves a new password when
+         he returns there will be a check in "OnResume", if a new password was added the
+         screen will scroll to the end*/
+        itemCount = adapter.itemCount
     }
 
 
@@ -89,6 +93,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun observe() {
         viewModel.listPasswords.observe(this) {
+            //observe a variable in the ViewModel to know when the database is updated
             adapter.updatePasswords(it)
         }
     }

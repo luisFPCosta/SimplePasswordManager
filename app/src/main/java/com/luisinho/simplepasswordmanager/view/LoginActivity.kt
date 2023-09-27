@@ -51,9 +51,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     //password is not blank
                     if (viewModel.passwordHasAtLeastFourCharacters(password)) {
-                        //Checks whether the user has already created a password to decide whether to create a new password or log in
+                        //the password has at least four characters
                         if (viewModel.passwordExists()) {
-                            //there is already a saved password
+                            //Checks whether the user has already created a password to decide whether to create a new password or log in
                             if (!viewModel.login(password)) {
                                 //If the login is unsuccessful, clears the EditText and displays a red incorrect password message in the hint
                                 invalidPassword(R.string.incorrect_password)

@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.luisinho.simplepasswordmanager.databinding.RowPasswordBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
 import com.luisinho.simplepasswordmanager.service.PasswordListener
-import com.luisinho.simplepasswordmanager.view.MainActivity
 import com.luisinho.simplepasswordmanager.view.viewHolder.PasswordViewHolder
 
-class  PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewHolder>() {
+class PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewHolder>() {
     private var passwordList: List<PasswordModel> = arrayListOf()
     private lateinit var passwordListener: PasswordListener
     private lateinit var listPassword: RowPasswordBinding
@@ -42,7 +41,6 @@ class  PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordView
     fun attachListener(listener: PasswordListener) {
         passwordListener = listener
     }
-
 
 
 }

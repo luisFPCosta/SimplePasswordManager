@@ -20,7 +20,7 @@ interface PasswordDAO {
     fun delete(password: PasswordModel)
 
     @Query("SELECT * FROM password WHERE id = :id")
-    fun get(id:Int): PasswordModel
+    fun get(id: Int): PasswordModel
 
     @Query("SELECT * FROM password")
     fun getAll(): List<PasswordModel>
