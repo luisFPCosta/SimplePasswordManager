@@ -12,11 +12,13 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityPasswordGeneratorBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
 import com.luisinho.simplepasswordmanager.service.PasswordGeneratorService
 import com.luisinho.simplepasswordmanager.viewmodel.PasswordViewModel
+import kotlinx.coroutines.launch
 
 
 class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener,
@@ -95,9 +97,9 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                         binding.editGeneratedPassword.setHintTextColor(Color.RED)
                     } else {
                         if (id == 0) {//if the id is equal to zero then it is a new password, calling the insert method
-                            viewModel.insert(model)
+                            lifecycleScope.launch { viewModel.insert(model) }
                         } else {//if the id is different from zero then it is an update to the already saved password, calling the update method
-                            viewModel.update(model)
+                            lifecycleScope.launch { viewModel.update(model) }
                         }
                     }
                 } else {//name is invalid
@@ -113,7 +115,7 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
         val bundle = intent.extras
         if (bundle != null) {
             val id = bundle.getInt("id")
-            viewModel.get(id)//loads the saved password data into a variable observed in the view-model
+            lifecycleScope.launch { viewModel.get(id) } //loads the saved password data into a variable observed in the view-model
         }
     }
 

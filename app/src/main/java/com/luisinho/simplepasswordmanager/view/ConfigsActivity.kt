@@ -40,6 +40,10 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
         return password == ""
     }
 
+    private fun deleteBlankSpaces(password: String): String {
+        return password.replace("\\s".toRegex(), "")
+    }
+
     private fun createDialog() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -55,11 +59,11 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
             /*control variable used to know if any field is blank. It will only be false if
             all fields are filled in*/
             blankPasswords = false
-            val oldPasswordValue = editOldPassword.text.replace("\\s".toRegex(), "")
-            val newPasswordValue = editNewPassword.text.replace("\\s".toRegex(), "")
-            val repeatNewPasswordValue = repeatNewPassword.text.replace("\\s".toRegex(), "")
-            if (passwordIsBlank(oldPasswordValue)) {/*If the field is blank, displays a red warning to the user and assigns the value
-                 “false” to the control variable*/
+            val oldPasswordValue = deleteBlankSpaces(editOldPassword.text.toString())
+            val newPasswordValue = deleteBlankSpaces(editNewPassword.text.toString())
+            val repeatNewPasswordValue = deleteBlankSpaces(repeatNewPassword.text.toString())
+            if (passwordIsBlank(oldPasswordValue)) {/*If the field is blank, displays a red warning
+            to the user and assigns the value “false” to the control variable*/
                 editOldPassword.setHintTextColor(getColor(R.color.red_warning))
                 editOldPassword.hint = getString(R.string.enter_your_old_password)
                 blankPasswords = true
@@ -111,18 +115,11 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
                             editNewPassword.setHintTextColor(getColor(R.color.red_warning))
                             editNewPassword.hint = getString(R.string.dialog_password_too_short)
                         }
-
                     }
                 }
             }
-
-
         }
-        buttonCancel.setOnClickListener {
-            dialog.dismiss()
-        }
+        buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
-
-
     }
 }

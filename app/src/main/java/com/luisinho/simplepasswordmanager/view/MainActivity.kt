@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityMainBinding
@@ -12,13 +13,14 @@ import com.luisinho.simplepasswordmanager.model.PasswordModel
 import com.luisinho.simplepasswordmanager.service.PasswordListener
 import com.luisinho.simplepasswordmanager.view.adapter.PasswordAdapter
 import com.luisinho.simplepasswordmanager.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: PasswordAdapter
-    private var itemCount: Int = 0 /*variable used to know if a new password was entered. If so,
+    private var itemCount: Int = 0  /*variable used to know if a new password was entered. If so,
     the screen scrolls to the end*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.recyclerPasswords.setHasFixedSize(true)
         adapter = PasswordAdapter(this)
         binding.recyclerPasswords.adapter = adapter
+
         val listener = object : PasswordListener {
             override fun onClick(password: PasswordModel) {
                 val intent = Intent(applicationContext, PasswordGeneratorActivity::class.java)
@@ -44,7 +47,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onLongClick(password: PasswordModel) {
                 //delete password with one long click
-                viewModel.delete(password)
+                lifecycleScope.launch { viewModel.delete(password) }
+
             }
         }
         observe()
@@ -53,29 +57,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAll()
-        if (adapter.itemCount == 0) {
-            /*If the adapter returns that there is no item being displayed, it is because there is
-            nothing saved in the database, in this case a TextView is displayed informing the user
-            of this*/
-            binding.textNoPasswordSaved.visibility = View.VISIBLE
-
-        } else {
-            binding.textNoPasswordSaved.visibility = View.GONE
-        }
-        if (itemCount < adapter.itemCount && itemCount != 0) {
-            //scrolls the screen to the end when entering a new password. New passwords appear at the bottom of the screen
-            binding.recyclerPasswords.scrollToPosition(adapter.itemCount - 1)
-        }
+        lifecycleScope.launch { viewModel.getAll() }
     }
 
     override fun onStop() {
         super.onStop()
         /*updates the variable to get the number of saved passwords when the
-         user enters the password creation/editing activity. If he saves a new password when
-         he returns there will be a check in "OnResume", if a new password was added the
-         screen will scroll to the end*/
+         the user starts the password creation/editing activity. If you save a new password when
+         return there will be a check. If a new password has been added
+         the screen will scroll to the end*/
         itemCount = adapter.itemCount
+
     }
 
 
@@ -95,6 +87,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.listPasswords.observe(this) {
             //observe a variable in the ViewModel to know when the database is updated
             adapter.updatePasswords(it)
+            if (adapter.itemCount == 0) {
+                /*If the adapter returns that there is no item being displayed, it is because there is
+                nothing saved in the database, in this case a TextView is displayed informing the user
+                of this*/
+                binding.textNoPasswordSaved.visibility = View.VISIBLE
+
+            } else {
+                binding.textNoPasswordSaved.visibility = View.GONE
+            }
+            if (itemCount < adapter.itemCount && itemCount != 0) {
+                //scrolls the screen to the end when entering a new password. New passwords appear at the bottom of the screen
+                binding.recyclerPasswords.scrollToPosition(adapter.itemCount - 1)
+            }
         }
     }
 }

@@ -16,10 +16,7 @@ class PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewH
     private lateinit var listPassword: RowPasswordBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PasswordViewHolder {
         listPassword = RowPasswordBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+            LayoutInflater.from(parent.context), parent, false)
         return PasswordViewHolder(listPassword, passwordListener)
     }
 
@@ -32,7 +29,6 @@ class PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewH
         return passwordList.count()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updatePasswords(list: List<PasswordModel>) {
         passwordList = list
         notifyDataSetChanged()

@@ -11,17 +11,17 @@ import com.luisinho.simplepasswordmanager.model.PasswordModel
 @Dao
 interface PasswordDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(password: PasswordModel): Long
+    suspend fun insert(password: PasswordModel): Long
 
     @Update
-    fun update(password: PasswordModel): Int
+    suspend fun update(password: PasswordModel): Int
 
     @Delete
-    fun delete(password: PasswordModel)
+    suspend fun delete(password: PasswordModel)
 
     @Query("SELECT * FROM password WHERE id = :id")
-    fun get(id: Int): PasswordModel
+    suspend fun get(id: Int): PasswordModel
 
     @Query("SELECT * FROM password")
-    fun getAll(): List<PasswordModel>
+    suspend fun getAll(): List<PasswordModel>
 }

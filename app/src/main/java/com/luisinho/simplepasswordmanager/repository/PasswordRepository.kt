@@ -1,28 +1,30 @@
 package com.luisinho.simplepasswordmanager.repository
 
 import android.content.Context
+import com.luisinho.simplepasswordmanager.data.MasterKey
 import com.luisinho.simplepasswordmanager.model.PasswordModel
 
-class PasswordRepository(context: Context, masterKey: ByteArray) {
-    private val passwordDataBase = PasswordDataBase.getDataBase(context, masterKey).passwordDAO()
+class PasswordRepository(context: Context) {
+    private val passwordDataBase =
+        PasswordDataBase.getDataBase(context, MasterKey.getKey()).passwordDAO()
 
-    fun insert(password: PasswordModel): Boolean {
+    suspend fun insert(password: PasswordModel): Boolean {
         return passwordDataBase.insert(password) > 0
     }
 
-    fun update(password: PasswordModel): Boolean {
+    suspend fun update(password: PasswordModel): Boolean {
         return passwordDataBase.update(password) > 0
     }
 
-    fun delete(password: PasswordModel) {
+    suspend fun delete(password: PasswordModel) {
         passwordDataBase.delete(password)
     }
 
-    fun get(id: Int): PasswordModel {
+    suspend fun get(id: Int): PasswordModel {
         return passwordDataBase.get(id)
     }
 
-    fun getAll(): List<PasswordModel> {
+    suspend fun getAll(): List<PasswordModel> {
         return passwordDataBase.getAll()
     }
 

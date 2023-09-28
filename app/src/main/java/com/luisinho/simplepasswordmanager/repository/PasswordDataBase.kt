@@ -22,7 +22,6 @@ abstract class PasswordDataBase : RoomDatabase() {
                     INSTANCE =
                         Room.databaseBuilder(context, PasswordDataBase::class.java, "passwordDB")
                             .openHelperFactory(factory)
-                            .allowMainThreadQueries()
                             .build()
                 }
             }
