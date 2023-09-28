@@ -1,7 +1,7 @@
 # SimplePasswordManager
 # This is not a commercial application.
 
-A simple password manager created for study purposes only.
+A simple password manager written completely in Kotlin created for study purposes only.
 
 ![app preview](/app/src/main/res/drawable/previewimage.png)
 
