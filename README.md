@@ -3,7 +3,7 @@
 
 A simple password manager created for study purposes only.
 
-![](app\src\main\res\drawable\previewimage.png)
+![app preview]("/app/src/main/res/drawable/previewimage.png")
 
 This project was not created with real use in mind, it was created solely for study purposes. It lacks basic features such as cloud data backup. Its creation had the sole objective of exercising what I have been learning in my studies.
 
