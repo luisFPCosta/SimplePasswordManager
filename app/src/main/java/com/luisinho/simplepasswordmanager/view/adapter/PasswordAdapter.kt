@@ -29,6 +29,7 @@ class PasswordAdapter(val context: Context) : RecyclerView.Adapter<PasswordViewH
         return passwordList.count()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePasswords(list: List<PasswordModel>) {
         passwordList = list
         notifyDataSetChanged()

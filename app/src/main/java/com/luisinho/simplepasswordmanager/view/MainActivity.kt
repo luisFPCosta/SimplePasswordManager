@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: PasswordAdapter
-    private var itemCount: Int = 0  /*variable used to know if a new password was entered. If so,
+    private lateinit var searchView: SearchView
+    private var itemCount: Int = 0/*variable used to know if a new password was entered. If so,
     the screen scrolls to the end*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +37,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.recyclerPasswords.setHasFixedSize(true)
         adapter = PasswordAdapter(this)
         binding.recyclerPasswords.adapter = adapter
+        searchView = binding.searchPasswords
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                lifecycleScope.launch { viewModel.search(query) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                lifecycleScope.launch { viewModel.search(newText) }
+                return true
+            }
+        })
 
         val listener = object : PasswordListener {
             override fun onClick(password: PasswordModel) {
@@ -45,11 +58,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
-
             override fun onLongClick(password: PasswordModel) {
                 //delete password with one long click
                 lifecycleScope.launch { viewModel.delete(password) }
-
             }
         }
         observe()
@@ -59,15 +70,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         lifecycleScope.launch { viewModel.getAll() }
+        searchView.onActionViewCollapsed()
     }
 
     override fun onStop() {
-        super.onStop()
-        /*updates the variable to get the number of saved passwords when the
+        super.onStop()/*updates the variable to get the number of saved passwords when the
          the user starts the password creation/editing activity. If you save a new password when
          return there will be a check. If a new password has been added
          the screen will scroll to the end*/
-        itemCount = adapter.itemCount
+        lifecycleScope.launch { itemCount = viewModel.itemCount() }
+
 
     }
 
@@ -88,8 +100,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.listPasswords.observe(this) {
             //observe a variable in the ViewModel to know when the database is updated
             adapter.updatePasswords(it)
-            if (adapter.itemCount == 0) {
-                /*If the adapter returns that there is no item being displayed, it is because there is
+            if (adapter.itemCount == 0) {/*If the adapter returns that there is no item being displayed, it is because there is
                 nothing saved in the database, in this case a TextView is displayed informing the user
                 of this*/
                 binding.textNoPasswordSaved.visibility = View.VISIBLE

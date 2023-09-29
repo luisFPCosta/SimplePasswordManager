@@ -21,7 +21,7 @@ class PasswordViewHolder(
         } else {
             item.textLocal.text = password.local
         }
-        if (password.username.isNullOrEmpty()) {
+        if (password.username.isEmpty()) {
             item.textUsername.text = context.getString(R.string.username_not_specified)
         } else {
             item.textUsername.text = password.username

@@ -31,4 +31,8 @@ class PasswordRepository(context: Context) {
         return passwordDataBase.search(term)
     }
 
+    suspend fun getItemsCount(): Int {
+        return passwordDataBase.getItemsCount()
+    }
+
 }
