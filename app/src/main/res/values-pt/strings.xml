@@ -55,4 +55,6 @@
     <string name="dialog_password_too_short">Muito curta. Mínimo 4 caracteres</string>
     <string name="save_an_empty_password">Não é possível salvar uma senha vazia</string>
     <string name="no_password_saved">Nenhuma senha salva, clique no botão abaixo para criar uma.</string>
+    <string name="username">Nome de usuário ou E-mail</string>
+    <string name="username_not_specified">Usuário não informado</string>
 </resources>

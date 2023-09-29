@@ -27,5 +27,8 @@ class PasswordRepository(context: Context) {
     suspend fun getAll(): List<PasswordModel> {
         return passwordDataBase.getAll()
     }
+    suspend fun search(term:String):List<PasswordModel>{
+        return passwordDataBase.search(term)
+    }
 
 }

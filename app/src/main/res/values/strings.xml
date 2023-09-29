@@ -53,4 +53,6 @@
     <string name="dialog_password_too_short">Too short. Minimum 4 characters</string>
     <string name="save_an_empty_password">It is not possible to save an empty password</string>
     <string name="no_password_saved">No password saved, click the button below to create one.</string>
+    <string name="username">User Name or E-mail</string>
+    <string name="username_not_specified">User not specified</string>
 </resources>

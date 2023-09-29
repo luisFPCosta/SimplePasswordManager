@@ -24,4 +24,7 @@ interface PasswordDAO {
 
     @Query("SELECT * FROM password")
     suspend fun getAll(): List<PasswordModel>
+
+    @Query("SELECT * FROM password WHERE (name = :term) OR (local = :term)")
+    suspend fun search(term: String): List<PasswordModel>
 }

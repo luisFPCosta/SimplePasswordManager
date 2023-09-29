@@ -86,11 +86,13 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
 
             R.id.button_save_password -> {
                 val name = binding.editName.text.toString().trim()
-                if (viewModel.validName(name)) {// checks if name is valid, not blank
+                if (viewModel.validName(name)) {
+                    // checks if name is valid, not blank
+                    val username = binding.editUsername.text.toString().replace("\\s".toRegex(), "")// checks if name is valid, not blank
                     val local = binding.editLocal.text.toString().replace("\\s".toRegex(), "")
                     val password =
                         binding.editGeneratedPassword.text.toString().replace("\\s".toRegex(), "")
-                    val model = PasswordModel(id, name, local, password)
+                    val model = PasswordModel(id, name,username , local, password)
                     if (password.isEmpty()) {
                         binding.editGeneratedPassword.setText("")
                         binding.editGeneratedPassword.setHint(R.string.save_an_empty_password)
@@ -123,6 +125,7 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
         viewModel.password.observe(this) {
             //If the variable observed in the view-model receives data, it will be assigned to the activity for editing
             binding.editName.setText(it.name)
+            binding.editUsername.setText(it.username)
             binding.editLocal.setText(it.local)
             binding.editGeneratedPassword.setText(it.password)
             password = it.password

@@ -16,6 +16,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _listPasswords.value = passwordList
         return passwordList
     }
+    suspend fun search(term: String): List<PasswordModel> {
+        val passwordList = repository.search(term)
+        _listPasswords.value = passwordList
+        return passwordList
+    }
 
     suspend fun delete(password: PasswordModel) {
         repository.delete(password)

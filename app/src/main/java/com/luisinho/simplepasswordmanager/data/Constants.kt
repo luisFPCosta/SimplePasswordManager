@@ -8,6 +8,7 @@ class Constants  {
     }
     object Model{
         const val NAME = "name"
+        const val USERNAME = "username"
         const val PASSWORD = "password"
         const val LOCAL = "local"
 
