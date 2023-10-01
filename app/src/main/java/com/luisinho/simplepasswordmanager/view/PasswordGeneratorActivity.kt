@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 
 class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener,
     View.OnClickListener {
-
     private var id = 0
     private lateinit var viewModel: PasswordViewModel
     private lateinit var binding: ActivityPasswordGeneratorBinding

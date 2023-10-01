@@ -23,7 +23,11 @@ abstract class PasswordDataBase : RoomDatabase() {
                 val factory = SupportFactory(masterKey, null, false)
                 synchronized(PasswordDataBase::class) {
                     INSTANCE =
-                        Room.databaseBuilder(context, PasswordDataBase::class.java, "passwordDB")
+                        Room.databaseBuilder(
+                            context,
+                            PasswordDataBase::class.java,
+                            Constants.Database.DATABASE_NAME
+                        )
                             .openHelperFactory(factory)
                             .addMigrations(MIGRATION_1_2)
                             .build()

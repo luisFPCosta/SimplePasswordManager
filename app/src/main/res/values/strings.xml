@@ -55,4 +55,10 @@
     <string name="no_password_saved">No password saved, click the button below to create one.</string>
     <string name="username">User Name or E-mail</string>
     <string name="username_not_specified">User not specified</string>
+    <string name="database_backup">Database Backup</string>
+    <string name="backup_password">Backup password</string>
+    <string name="database_backup_text">A zip file will be created in the “Documents” folder on your internal storage. In this file there will be a text file containing the encryption password for your database and the database itself. Be very careful because with this file anyone can access all your passwords, keep it in a safe place. If you lose your encryption key, you will no longer be able to access your saved passwords. Are you sure you want to export your passwords?</string>
+    <string name="type_yes_to_confirm">Type \"yes\" to confirm</string>
+    <string name="confirm_that_you_understand">Confirm that you understand.</string>
+    <string name="restore_database">Restore database</string>
 </resources>

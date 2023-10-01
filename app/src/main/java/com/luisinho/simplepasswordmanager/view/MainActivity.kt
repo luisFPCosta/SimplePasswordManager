@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.recyclerPasswords.setHasFixedSize(true)
         adapter = PasswordAdapter(this)
         binding.recyclerPasswords.adapter = adapter
+
         searchView = binding.searchPasswords
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                //performs the search after each character entered
                 lifecycleScope.launch { viewModel.search(newText) }
                 return true
             }
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+
             override fun onLongClick(password: PasswordModel) {
                 //delete password with one long click
                 lifecycleScope.launch { viewModel.delete(password) }
@@ -69,6 +72,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+
         lifecycleScope.launch { viewModel.getAll() }
         searchView.onActionViewCollapsed()
     }
@@ -79,8 +83,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          return there will be a check. If a new password has been added
          the screen will scroll to the end*/
         lifecycleScope.launch { itemCount = viewModel.itemCount() }
-
-
     }
 
 

@@ -30,11 +30,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
     suspend fun itemCount():Int{
+        /*returns the number of items saved in the database to know if a new item was saved to
+         scroll to it in the MainActivity. This is necessary because with the search system the
+         adapter only returns values for what was searched, no longer the total value of
+         items*/
         return repository.getItemsCount()
     }
 
-    suspend fun delete(password: PasswordModel) {
+    suspend fun delete(password: PasswordModel): List<PasswordModel> {
         repository.delete(password)
-        _listPasswords.value = repository.getAll()
+        val passwordList = repository.getAll()
+        _listPasswords.value = passwordList
+        return passwordList
     }
 }
