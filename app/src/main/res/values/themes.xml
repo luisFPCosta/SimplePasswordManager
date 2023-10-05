@@ -8,8 +8,6 @@
 
     </style>
 
-    <style name="Theme.SimplePasswordManager" parent="Base.Theme.SimplePasswordManager" />
-
     <style name="checkbox" parent="Base.Theme.SimplePasswordManager">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>

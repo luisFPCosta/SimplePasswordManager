@@ -9,10 +9,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityPasswordGeneratorBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
@@ -87,11 +87,12 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                 val name = binding.editName.text.toString().trim()
                 if (viewModel.validName(name)) {
                     // checks if name is valid, not blank
-                    val username = binding.editUsername.text.toString().replace("\\s".toRegex(), "")// checks if name is valid, not blank
+                    val username = binding.editUsername.text.toString()
+                        .replace("\\s".toRegex(), "")// checks if name is valid, not blank
                     val local = binding.editLocal.text.toString().replace("\\s".toRegex(), "")
                     val password =
                         binding.editGeneratedPassword.text.toString().replace("\\s".toRegex(), "")
-                    val model = PasswordModel(id, name,username , local, password)
+                    val model = PasswordModel(id, name, username, local, password)
                     if (password.isEmpty()) {
                         binding.editGeneratedPassword.setText("")
                         binding.editGeneratedPassword.setHint(R.string.save_an_empty_password)
@@ -105,8 +106,7 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                     }
                 } else {//name is invalid
                     val message: String = getString(R.string.invalid_name)
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT)
-                        .show()//show the invalid name message in a toast
+                    snackbar(message)
                 }
             }
         }
@@ -133,7 +133,7 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
         }
         viewModel.saveSuccess.observe(this) {
             //observe a boolean variable in the view-model that receives true in cases of success and false in cases of failure
-            if (it) {//If successful, generate a confirmation message to be displayed in a toast
+            if (it) {//If successful, generate a confirmation message to be displayed in a snackbar
                 var message: String = if (id != 0) {
                     getString(R.string.updated)
                 } else {
@@ -141,17 +141,19 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                 }
                 message =
                     ("${getString(R.string.password)} $message ${getString(R.string.successfully)}")
-                toast(message)// show toast
+                snackbar(message)// show toast
                 finish()//finish activity
             } else {//in case of error displays a message without closing the activity
-                toast(getString(R.string.unexpected_error))
+                snackbar(getString(R.string.unexpected_error))
             }
         }
     }
 
-    private fun toast(message: String) {
-        //display a toast
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun snackbar(message: String){
+        val snackbar = Snackbar.make(binding.passwordGeneratorLayout, message, Snackbar.LENGTH_LONG)
+        snackbar.setTextMaxLines(5)
+        snackbar.setBackgroundTint(getColor(R.color.grey_200))
+        snackbar.show()
     }
 
 
@@ -164,11 +166,11 @@ class PasswordGeneratorActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeLi
                 val clip = ClipData.newPlainText("password", password)
                 clipBoard.setPrimaryClip(clip)
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    Toast.makeText(this, getString(R.string.copied), Toast.LENGTH_SHORT).show()
+                    snackbar(getString(R.string.copied))
                 }
             }
         } catch (exception: Exception) {
-            toast(getString(R.string.unexpected_error))
+            snackbar(getString(R.string.unexpected_error))
         }
     }
 }

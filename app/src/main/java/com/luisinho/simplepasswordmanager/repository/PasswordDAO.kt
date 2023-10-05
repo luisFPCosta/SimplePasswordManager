@@ -27,6 +27,7 @@ interface PasswordDAO {
 
     @Query("SELECT * FROM password WHERE ((name LIKE '%' || :term || '%') OR (local LIKE '%' || :term || '%') OR (username LIKE '%' || :term || '%') ) ")
     suspend fun search(term: String): List<PasswordModel>
+
     @Query("SELECT COUNT (*) FROM password")
     suspend fun getItemsCount(): Int
 }

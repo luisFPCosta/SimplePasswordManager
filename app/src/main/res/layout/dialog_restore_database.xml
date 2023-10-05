@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="25dp">
 
         <TextView
             style="@style/textview"
@@ -25,23 +25,34 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="@string/database_backup_text"
+            android:text="@string/database_restore_text"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/text_incorrect_confirmation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/red_warning"
-            android:visibility="gone" />
 
         <Button
             android:id="@+id/button_select_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Picker"/>
+            android:text="@string/select_file" />
+
+        <TextView
+            android:id="@+id/text_file_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            style="@style/textview"
+            android:layout_marginTop="20dp"
+            android:id="@+id/text_confirm_restoration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/confirm_restoration"
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -6,13 +6,10 @@
     <string name="allow_alphabetical">Allow Alphabetical</string>
     <string name="allow_numerics">Allow Numerics</string>
     <string name="allow_symbols">Allow Symbols</string>
-    <string name="your_password">Your Password</string>
-    <string name="account_name">Name of this account</string>
     <string name="chars_in_password">0</string>
     <string name="save_password">Save Password</string>
     <string name="copy_password">Copy Password</string>
     <string name="generate_password">Generate Password</string>
-    <string name="password_copied">Password Copied</string>
     <string name="local">Local</string>
     <string name="unknown_location">Location not specified</string>
     <string name="delete">Delete this password?</string>
@@ -40,7 +37,6 @@
     <string name="biometric_authentication">Biometric Authentication</string>
     <string name="tap_the_sensor">Tap the biometric sensor to enter the app.</string>
     <string name="cancel">Cancel</string>
-    <string name="password_too_short">Password too short. The password must have at least four characters.</string>
     <string name="change_password">Change Password</string>
     <string name="settings">Settings</string>
     <string name="be_careful_if_you_forget_your_password_you_will_not_be_able_to_access_the_data_saved_in_the_application">Be careful, if you forget your password you will not be able to access the data saved in the application!</string>
@@ -56,9 +52,17 @@
     <string name="username">User Name or E-mail</string>
     <string name="username_not_specified">User not specified</string>
     <string name="database_backup">Database Backup</string>
-    <string name="backup_password">Backup password</string>
-    <string name="database_backup_text">A zip file will be created in the “Documents” folder on your internal storage. In this file there will be a text file containing the encryption password for your database and the database itself. Be very careful because with this file anyone can access all your passwords, keep it in a safe place. If you lose your encryption key, you will no longer be able to access your saved passwords. Are you sure you want to export your passwords?</string>
+    <string name="database_backup_text">A zip file will be created in the “Documents” folder on your internal storage. In this file there will be a text file containing the encryption password for your database. Be very careful because with this file anyone can access all your passwords, keep it in a safe place. If you lose your encryption key, you will no longer be able to access your saved passwords. Are you sure you want to export your passwords?</string>
     <string name="type_yes_to_confirm">Type \"yes\" to confirm</string>
     <string name="confirm_that_you_understand">Confirm that you understand.</string>
     <string name="restore_database">Restore database</string>
+    <string name="database_exported_successfully">Database exported successfully</string>
+    <string name="database_restore_text">To restore your passwords click the button below and look for your backup file. Its name was originally \"simple_password_db_backup.zip\".</string>
+    <string name="select_file">Select File</string>
+    <string name="confirm_restoration">Click confirm below to begin restoring the backup. After the operation you will see a confirmation message. If completed successfully, simply return to the main screen and your data will appear automatically. Any currently saved password will be overwritten by the backup. If you cancel nothing will change.</string>
+    <string name="permission_granted">Permission granted, you can proceed.</string>
+    <string name="permission_denied">Permission denied. This permission is required to make or restore backups. Grant it to proceed.</string>
+    <string name="selected">Selected: %1$s</string>
+    <string name="invalid_file">Invalid file. Select the correct backup file.</string>
+    <string name="restoration_completed">Restoration Completed</string>
 </resources>

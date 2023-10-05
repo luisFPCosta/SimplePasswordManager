@@ -6,7 +6,7 @@ import com.luisinho.simplepasswordmanager.model.PasswordModel
 
 class PasswordRepository(context: Context) {
     private val passwordDataBase =
-        PasswordDataBase.getDataBase(context, MasterKey.getKey()).passwordDAO()
+        PasswordDataBase.getDataBase(context).passwordDAO()
 
     suspend fun insert(password: PasswordModel): Boolean {
         return passwordDataBase.insert(password) > 0
@@ -34,5 +34,9 @@ class PasswordRepository(context: Context) {
     suspend fun getItemsCount(): Int {
         return passwordDataBase.getItemsCount()
     }
+    fun closeDataBase(){
+        PasswordDataBase.closeDataBase()
+    }
+
 
 }

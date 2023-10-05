@@ -3,15 +3,20 @@ package com.luisinho.simplepasswordmanager.view
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityConfigsBinding
 import com.luisinho.simplepasswordmanager.viewmodel.ConfigsViewModel
@@ -22,6 +27,24 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: ConfigsViewModel
     private lateinit var layout: View
     private var blankPasswords = false
+    private lateinit var uri: Uri
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            try {
+                uri = result!!.data!!.data!!
+                val fileName = viewModel.backupName(uri.pathSegments.last())
+                layout.findViewById<TextView>(R.id.text_file_selected).text =
+                    getString(R.string.selected, fileName)
+                layout.findViewById<TextView>(R.id.text_file_selected).visibility = View.VISIBLE
+                layout.findViewById<TextView>(R.id.text_confirm_restoration).visibility =
+                    View.VISIBLE
+            } catch (_: Exception){
+            /*Just in case the user does not select any file, the application will not
+             close and the user will continue on the same screen to select a file*/
+            }
+
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConfigsBinding.inflate(layoutInflater)
@@ -32,8 +55,6 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
         binding.textChangePassword.setOnClickListener(this)
         binding.textBackupDatabase.setOnClickListener(this)
         binding.textRestoreDatabase.setOnClickListener(this)
-
-
     }
 
     override fun onClick(view: View) {
@@ -43,13 +64,42 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             binding.textBackupDatabase.id -> {
-                backupDialog()
+                if (isStoragePermissionGranted()) {
+                    backupDialog()
+                } else {
+                    if (viewModel.checkIfItIsTheFirstPermissionRequest()) {
+                        viewModel.permissionAlreadyRequested()
+                    }
+                }
             }
 
             binding.textRestoreDatabase.id -> {
-                restoreDialog()
+                if (isStoragePermissionGranted()) {
+                    restoreDialog()
+                } else {
+                    if (!viewModel.checkIfItIsTheFirstPermissionRequest()) {
+                        viewModel.permissionAlreadyRequested()
+                    }
+                }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            snackbar(getString(R.string.permission_granted))
+        } else {
+            snackbar(getString(R.string.permission_denied))
+        }
+    }
+
+    private fun snackbar(message: String) {
+        val snackbar = Snackbar.make(binding.configLayout, message, Snackbar.LENGTH_LONG)
+        snackbar.setTextMaxLines(5)
+        snackbar.show()
     }
 
 
@@ -64,17 +114,32 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
         val buttonCancel = layout.findViewById<Button>(R.id.button_cancel)
         val selectPath = layout.findViewById<Button>(R.id.button_select_path)
         selectPath.setOnClickListener {
-            Toast.makeText(this, "AAAAAAAAAAAAAAAAAAAAAA", Toast.LENGTH_LONG)
-                .show()
-            val intent = Intent(Intent.ACTION_VIEW)
-            val uri = Uri.parse("Android") // a directory
-
-            intent.setDataAndType(uri, "text/plain")
-            startActivity(Intent.createChooser(intent, "Open folder"))
-
-
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            val uri = Uri.parse(Environment.DIRECTORY_DOCUMENTS)
+            intent.setDataAndType(uri, "application/zip")
+            resultLauncher.launch(intent)
         }
+
         buttonConfirm.setOnClickListener {
+
+            when (viewModel.restoreDataBase(application, uri)) {/*restore database response codes
+                * 0 -> Successful restore
+                * 1 -> Invalid file, not the app's backup file
+                * 2 -> Unexpected errors*/
+                0 -> {
+                    snackbar(getString(R.string.restoration_completed))
+                    dialog.dismiss()
+                }
+
+                1 -> {
+                    snackbar(getString(R.string.invalid_file))
+
+                }
+
+                2 -> {
+                    snackbar(getString(R.string.unexpected_error))
+                }
+            }
         }
         buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
@@ -99,18 +164,16 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
                 incorrectConfirmationText.visibility = View.VISIBLE
                 editConfirmation.setText("")
             } else {
-                Toast.makeText(this, viewModel.exportDatabase(this).toString(), Toast.LENGTH_LONG)
-                    .show()
-                dialog.dismiss()
-
+                if (viewModel.exportDatabase(this)) {
+                    snackbar(getString(R.string.database_exported_successfully))
+                    dialog.dismiss()
+                } else {
+                    snackbar(getString(R.string.unexpected_error))
+                }
             }
         }
         buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
-    }
-
-    private fun deleteBlankSpaces(password: String): String {
-        return password.replace("\\s".toRegex(), "")
     }
 
     @SuppressLint("InflateParams")
@@ -129,9 +192,10 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
             /*control variable used to know if any field is blank. It will only be false if
             all fields are filled in*/
             blankPasswords = false
-            val oldPasswordValue = deleteBlankSpaces(editOldPassword.text.toString())
-            val newPasswordValue = deleteBlankSpaces(editNewPassword.text.toString())
-            val repeatNewPasswordValue = deleteBlankSpaces(repeatNewPassword.text.toString())
+            val oldPasswordValue = viewModel.deleteBlankSpaces(editOldPassword.text.toString())
+            val newPasswordValue = viewModel.deleteBlankSpaces(editNewPassword.text.toString())
+            val repeatNewPasswordValue =
+                viewModel.deleteBlankSpaces(repeatNewPassword.text.toString())
             if (viewModel.passwordIsBlank(oldPasswordValue)) {/*If the field is blank, displays a red warning
             to the user and assigns the value “false” to the control variable*/
                 editOldPassword.setHintTextColor(getColor(R.color.red_warning))
@@ -165,11 +229,7 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
                                 everything is ok so far it will be
                                 saved by overwriting the old password*/
                                 if (viewModel.updatePassword(newPasswordValue)) {
-                                    Toast.makeText(
-                                        this,
-                                        getString(R.string.password_updated_successfully),
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    snackbar(getString(R.string.password_updated_successfully))
                                     dialog.dismiss()
                                 }
                             } else {
@@ -192,4 +252,27 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
         buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
+
+
+    private fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                true
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ), 1
+                )
+                false
+            }
+        } else {
+            true
+        }
+    }
+
 }

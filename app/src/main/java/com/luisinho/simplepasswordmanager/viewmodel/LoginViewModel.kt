@@ -3,7 +3,6 @@ package com.luisinho.simplepasswordmanager.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.luisinho.simplepasswordmanager.data.Constants
-import com.luisinho.simplepasswordmanager.data.MasterKey
 import com.luisinho.simplepasswordmanager.service.PasswordGeneratorService
 import com.luisinho.simplepasswordmanager.service.SharedPreferences
 
@@ -35,9 +34,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         return password == null || password == ""
     }
 
-    fun setMasterKey() {
-        MasterKey.setKey(preferences.getKeyValue(cryptoKey))
-    }
 
     fun passwordHasAtLeastFourCharacters(password: String): Boolean {
         return password.length >= 4

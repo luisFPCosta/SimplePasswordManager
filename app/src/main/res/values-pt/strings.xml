@@ -8,14 +8,11 @@
     <string name="allow_alphabetical">Incluir Letras</string>
     <string name="allow_numerics">Incluir Números</string>
     <string name="allow_symbols">Incluir Símbolos</string>
-    <string name="your_password">Sua Senha</string>
-    <string name="account_name">Nome dessa conta</string>
     <string name="chars_in_password">0</string>
     <string name="save_password">Salvar Senha</string>
     <string name="unknown_location">Local não informado</string>
     <string name="copy_password">Copiar Senha</string>
     <string name="generate_password">Gerar Senha</string>
-    <string name="password_copied">Senha copiada</string>
     <string name="local">Local</string>
     <string name="delete">Deletar essa senha?</string>
     <string name="are_you_sure_you_want_to_remove_the_password">Tem certeza que quer remover a senha</string>
@@ -42,7 +39,6 @@
     <string name="biometric_authentication">Autenticação Biométrica</string>
     <string name="tap_the_sensor">Toque no sensor biométrico para entrar no aplicativo.</string>
     <string name="cancel">Cancelar</string>
-    <string name="password_too_short">Senha muito curta. Deve ter pelo menos quatro caracteres.</string>
     <string name="change_password">Alterar a senha</string>
     <string name="settings">Configurações</string>
     <string name="be_careful_if_you_forget_your_password_you_will_not_be_able_to_access_the_data_saved_in_the_application">Cuidado, caso você esqueça sua senha não conseguirá acessar os dados salvos no aplicativo!</string>
@@ -57,4 +53,18 @@
     <string name="no_password_saved">Nenhuma senha salva, clique no botão abaixo para criar uma.</string>
     <string name="username">Nome de usuário ou E-mail</string>
     <string name="username_not_specified">Usuário não informado</string>
+    <string name="database_backup">Backup de banco de dados</string>
+    <string name="database_backup_text">Um arquivo zip será criado na pasta “Documentos” do seu armazenamento interno. Neste arquivo haverá um arquivo de texto contendo a senha de criptografia do seu banco de dados. Tenha muito cuidado pois com este arquivo qualquer pessoa pode acessar todas as suas senhas, guarde-o em local seguro. Se você perder sua chave de criptografia, não poderá mais acessar suas senhas salvas. Tem certeza de que deseja exportar suas senhas?</string>
+    <string name="type_yes_to_confirm">Escreva \"sim\" para confirmar</string>
+    <string name="confirm_that_you_understand">Confirme que você entendeu.</string>
+    <string name="restore_database">Restaurar banco de dados</string>
+    <string name="database_exported_successfully">Banco de dados exportado com sucesso</string>
+    <string name="database_restore_text">Para restaurar suas senhas clique no botão abaixo e procure seu arquivo de backup. Seu nome era originalmente \"simple_password_db_backup.zip\".</string>
+    <string name="select_file">Selecionar arquivo</string>
+    <string name="confirm_restoration">Clique em confirmar abaixo para começar a restaurar o backup. Após a operação você verá uma mensagem de confirmação. Se concluído com sucesso, basta retornar à tela principal e seus dados aparecerão automaticamente. Qualquer senha salva atualmente será substituída pelo backup. Se você cancelar nada mudará.</string>
+    <string name="permission_granted">Permissão concedida, você pode prosseguir.</string>
+    <string name="permission_denied">Permissão negada. Esta permissão é necessária para fazer ou restaurar backups. Conceda-o para prosseguir.</string>
+    <string name="selected">Selecionado: %1$s</string>
+    <string name="invalid_file">Arquivo inválido. Selecione o arquivo de backup correto.</string>
+    <string name="restoration_completed">Restauração concluída</string>
 </resources>

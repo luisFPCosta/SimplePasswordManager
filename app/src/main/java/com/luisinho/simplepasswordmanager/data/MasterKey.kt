@@ -1,13 +1,12 @@
 package com.luisinho.simplepasswordmanager.data
 
+import android.content.Context
+import com.luisinho.simplepasswordmanager.service.SharedPreferences
+
 class MasterKey {
     companion object{
-        private lateinit var cryptoKey:ByteArray
-        fun getKey(): ByteArray{
-            return cryptoKey
-        }
-        fun setKey(key:String){
-            cryptoKey = key.toByteArray()
+        fun getKey(context: Context): ByteArray{
+            return SharedPreferences(context).getKeyValue(Constants.SharedPreferences.CRYPTO_KEY).toByteArray()
         }
     }
 

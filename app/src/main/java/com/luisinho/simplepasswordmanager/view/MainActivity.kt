@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityMainBinding
 import com.luisinho.simplepasswordmanager.model.PasswordModel
+import com.luisinho.simplepasswordmanager.service.BackupRestored
 import com.luisinho.simplepasswordmanager.service.PasswordListener
 import com.luisinho.simplepasswordmanager.view.adapter.PasswordAdapter
 import com.luisinho.simplepasswordmanager.viewmodel.MainViewModel
@@ -72,13 +73,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-
+        if (BackupRestored.restored) {
+            //checks if the database has been restored, if so it is reloaded
+            viewModel.reloadDatabase(application)
+            BackupRestored.databaseAlreadyUpdated()
+        }
         lifecycleScope.launch { viewModel.getAll() }
         searchView.onActionViewCollapsed()
-    }
 
-    override fun onStop() {
-        super.onStop()/*updates the variable to get the number of saved passwords when the
+        /*updates the variable to get the number of saved passwords when the
          the user starts the password creation/editing activity. If you save a new password when
          return there will be a check. If a new password has been added
          the screen will scroll to the end*/
@@ -110,7 +113,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             } else {
                 binding.textNoPasswordSaved.visibility = View.GONE
             }
-            if (itemCount < adapter.itemCount && itemCount != 0) {
+            if (itemCount < adapter.itemCount && itemCount != 0 && !BackupRestored.restored) {
                 //scrolls the screen to the end when entering a new password. New passwords appear at the bottom of the screen
                 binding.recyclerPasswords.scrollToPosition(adapter.itemCount - 1)
             }

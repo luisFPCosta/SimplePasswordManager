@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.luisinho.simplepasswordmanager.data.Constants
+import com.luisinho.simplepasswordmanager.data.MasterKey
 import com.luisinho.simplepasswordmanager.model.PasswordModel
 import net.sqlcipher.database.SupportFactory
 
@@ -17,9 +18,10 @@ abstract class PasswordDataBase : RoomDatabase() {
 
     companion object {
         //singleton
-        private lateinit var INSTANCE: PasswordDataBase
-        fun getDataBase(context: Context, masterKey: ByteArray): PasswordDataBase {
-            if (!Companion::INSTANCE.isInitialized) {
+        private var INSTANCE: PasswordDataBase? = null
+        fun getDataBase(context: Context): PasswordDataBase {
+            if (INSTANCE == null) {
+                val masterKey = MasterKey.getKey(context)
                 val factory = SupportFactory(masterKey, null, false)
                 synchronized(PasswordDataBase::class) {
                     INSTANCE =
@@ -33,7 +35,7 @@ abstract class PasswordDataBase : RoomDatabase() {
                             .build()
                 }
             }
-            return INSTANCE
+            return INSTANCE!!
         }
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -41,6 +43,10 @@ abstract class PasswordDataBase : RoomDatabase() {
                 val username = Constants.Model.USERNAME
                 database.execSQL("ALTER TABLE password ADD COLUMN $username TEXT NOT NULL DEFAULT ''")
             }
+        }
+        fun closeDataBase(){
+            INSTANCE!!.close()
+            INSTANCE = null
         }
     }
 }

@@ -3,11 +3,11 @@ package com.luisinho.simplepasswordmanager.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.luisinho.simplepasswordmanager.R
 import com.luisinho.simplepasswordmanager.databinding.ActivityLoginBinding
 import com.luisinho.simplepasswordmanager.service.BiometricHelper
@@ -67,9 +67,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 startMainActivity()
                             } else {
                                 //registering a new password was unsuccessful
-                                Toast.makeText(
-                                    this, getString(R.string.unexpected_error), Toast.LENGTH_SHORT
-                                ).show()
+                                snackbar(getString(R.string.unexpected_error))
                             }
                         }
                     } else {
@@ -78,6 +76,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+    private fun snackbar(message: String) {
+        val snackbar = Snackbar.make(binding.loginLayout, message, Snackbar.LENGTH_LONG)
+        snackbar.setTextMaxLines(5)
+        snackbar.show()
     }
 
     private fun invalidPassword(message: Int) {
@@ -89,7 +92,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun startMainActivity() {
         startActivity(Intent(applicationContext, MainActivity::class.java))
-        viewModel.setMasterKey()
         finish()
     }
 
