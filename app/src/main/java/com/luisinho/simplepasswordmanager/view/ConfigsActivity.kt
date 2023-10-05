@@ -1,6 +1,7 @@
 package com.luisinho.simplepasswordmanager.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -27,22 +28,18 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: ConfigsViewModel
     private lateinit var layout: View
     private var blankPasswords = false
-    private lateinit var uri: Uri
+    private var uri: Uri? = null
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            try {
+            if (result.resultCode == Activity.RESULT_OK) {
                 uri = result!!.data!!.data!!
-                val fileName = viewModel.backupName(uri.pathSegments.last())
+                val fileName = viewModel.backupName(uri!!.pathSegments.last())
                 layout.findViewById<TextView>(R.id.text_file_selected).text =
                     getString(R.string.selected, fileName)
                 layout.findViewById<TextView>(R.id.text_file_selected).visibility = View.VISIBLE
                 layout.findViewById<TextView>(R.id.text_confirm_restoration).visibility =
                     View.VISIBLE
-            } catch (_: Exception){
-            /*Just in case the user does not select any file, the application will not
-             close and the user will continue on the same screen to select a file*/
             }
-
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,8 +100,9 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "CutPasteId")
     private fun restoreDialog() {
+        uri = null
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         layout = inflater.inflate(R.layout.dialog_restore_database, null)
@@ -121,27 +119,35 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         buttonConfirm.setOnClickListener {
+            if (uri != null) {
+                when (viewModel.restoreDataBase(application, uri!!)) {
+                    /*restore database response codes
+                    * 0 -> Successful restore
+                    * 1 -> Invalid file, not the app's backup file
+                    * 2 -> Unexpected errors*/
+                    0 -> {
+                        snackbar(getString(R.string.restoration_completed))
+                        dialog.dismiss()
+                    }
 
-            when (viewModel.restoreDataBase(application, uri)) {/*restore database response codes
-                * 0 -> Successful restore
-                * 1 -> Invalid file, not the app's backup file
-                * 2 -> Unexpected errors*/
-                0 -> {
-                    snackbar(getString(R.string.restoration_completed))
-                    dialog.dismiss()
+                    1 -> {
+                        snackbar(getString(R.string.invalid_file))
+
+                    }
+
+                    2 -> {
+                        snackbar(getString(R.string.unexpected_error))
+                    }
                 }
-
-                1 -> {
-                    snackbar(getString(R.string.invalid_file))
-
-                }
-
-                2 -> {
-                    snackbar(getString(R.string.unexpected_error))
-                }
+            } else {
+                layout.findViewById<TextView>(R.id.text_file_selected).text =
+                    getString(R.string.select_file_to_continue)
+                layout.findViewById<TextView>(R.id.text_file_selected).visibility = View.VISIBLE
             }
         }
-        buttonCancel.setOnClickListener { dialog.dismiss() }
+        buttonCancel.setOnClickListener {
+            dialog.dismiss()
+        }
         dialog.show()
     }
 
@@ -165,11 +171,14 @@ class ConfigsActivity : AppCompatActivity(), View.OnClickListener {
                 editConfirmation.setText("")
             } else {
                 if (viewModel.exportDatabase(this)) {
+
                     snackbar(getString(R.string.database_exported_successfully))
                     dialog.dismiss()
                 } else {
+
                     snackbar(getString(R.string.unexpected_error))
                 }
+
             }
         }
         buttonCancel.setOnClickListener { dialog.dismiss() }

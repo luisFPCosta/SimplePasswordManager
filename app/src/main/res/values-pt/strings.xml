@@ -67,4 +67,5 @@
     <string name="selected">Selecionado: %1$s</string>
     <string name="invalid_file">Arquivo inválido. Selecione o arquivo de backup correto.</string>
     <string name="restoration_completed">Restauração concluída</string>
+    <string name="select_file_to_continue">Selecione um arquivo para continuar.</string>
 </resources>

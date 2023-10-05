@@ -121,6 +121,7 @@ class ConfigsViewModel(application: Application) : AndroidViewModel(application)
         return password == ""
     }
 
+
     fun exportDatabase(context: Context): Boolean {
         return try {
             val databaseName = Constants.Database.DATABASE_NAME
@@ -131,17 +132,13 @@ class ConfigsViewModel(application: Application) : AndroidViewModel(application)
             File(database).copyTo(File(exportFolder, databaseName), true)
             File(wal).copyTo(File(exportFolder, "$databaseName-wal"), true)
             File(shm).copyTo(File(exportFolder, "$databaseName-shm"), true)
-            if (createPasswordTextFile(context)) {
-                if (zip(GetPaths.filesPath)) {
-                    deleteBackupFiles(GetPaths.filesPath)
-                    true
-                } else {
-                    false
-                }
-            } else {
-                false
-            }
+            createPasswordTextFile(context)
+            zip(GetPaths.filesPath)
+            deleteBackupFiles(GetPaths.filesPath)
+            true
         } catch (e: Exception) {
+            //Unexpected error
+            deleteBackupFiles(GetPaths.filesPath)
             false
         }
     }
@@ -235,6 +232,7 @@ class ConfigsViewModel(application: Application) : AndroidViewModel(application)
         }
         return fileName.reversed()
     }
+
     fun deleteBlankSpaces(password: String): String {
         return password.replace("\\s".toRegex(), "")
     }
