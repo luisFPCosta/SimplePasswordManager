@@ -3,9 +3,11 @@
 
 A simple password manager written completely in Kotlin created for study purposes only.
 
-![app preview](/app/src/main/res/drawable/previewimage.png)
 
-This project was not created with real use in mind, it lacks basic features such as cloud data backup. Its creation had the sole objective of exercising what I have been learning in my studies.
+<img src="/preview/preview1.png" alt="preview1" width="300"/> <img src="/preview/preview2.png" alt="preview2" width="300"/> <img src="/preview/preview3.png" alt="preview3" width="300"/>
+<img src="/preview/preview4.png" alt="preview4" width="300"/> <img src="/preview/preview5.png" alt="preview5" width="300"/> <img src="/preview/preview6.png" alt="preview6" width="300"/>
+
+This project was not created with real use in mind. Its creation had the sole objective of exercising what I have been learning in my studies.
 
 ## Features
 - Created using the MVVM pattern, Room, Coroutines and [SQLCipher](https://www.zetetic.net/sqlcipher/license/).
@@ -14,6 +16,10 @@ This project was not created with real use in mind, it lacks basic features such
 - Allows you to create or edit already saved passwords.
 - Create passwords that can include letters (case sensitive), numbers or symbols. Passwords with 8 characters up to 64 characters. Everything is customizable by the user.
 - Material Design dynamic colors
+- No internet connection. Only the user has access to their passwords.
+- Local backup. The user receives a file and can store it wherever they think is safest.
+- Search field that searches for occurrences in the password name, username or location (website, application or service name, etc.).
+- Long-press a saved password to delete it. Just click to edit it.
 
 # Security
 ## Access to the app
